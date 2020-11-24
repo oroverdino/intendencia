@@ -162,8 +162,8 @@ class AccesoPG:
             self.cur.execute(
                 "select e.evento, e.denominacion, e.ordenanza, e.fecha, e.hora "
                 "from eventos_y_equipos_de_limpieza as e "
-                "where iscompleta is false "
-                "and fecha >= now()"
+                "where iscompleta is not true "
+                "and fecha >= current_date"
             )
             eventos_equipos_limpieza_futuros = self.cur.fetchall()
             return eventos_equipos_limpieza_futuros
@@ -173,9 +173,7 @@ class AccesoPG:
     def set_limpieza_editar_hora(self, pid, phora):
         if self.conn is not None:
             try:
-                self.cur.execute(
-                    'call set_limpieza_editar_hora(%s, %s)', (pid, phora)
-                )
+                self.cur.execute('call set_limpieza_editar_hora(%s, %s)', (pid, phora))
                 return True
             except (Exception, psycopg2.Error) as error:
                 print('\n', 'Error al editar la hora de un evento de limpieza: ', '\n\t', error)
