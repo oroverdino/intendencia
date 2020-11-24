@@ -1,6 +1,12 @@
 #!/usr/bin/env python
-# -*-coding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
+# curso: TUPED, Base de Datos
+# fecha: 24nov'20
+# github: git@github.com:oroverdino/intendencia.git
+# Leandro Torres
+# descripcion:  main se encarga del menu,
+#               interfaz de la presentacion de las tablas
+#               acceso_db de traer las tablas de intendencia db
 from consolemenu import *
 from consolemenu.items import *
 

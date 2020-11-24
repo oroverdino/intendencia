@@ -83,7 +83,7 @@ class AccesoPG:
                 self.cur.execute('call set_llave_asignar(%s, %s)', (pllave, plegajo))
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al asignar la llave: ', '\n\t', error)
+                print('\n', 'Error al asignar la llave: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -95,7 +95,7 @@ class AccesoPG:
                 self.cur.execute('call set_llave_quitar(%s, %s)', (pllave, plegajo))
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al quitar la llave: ', '\n\t', error)
+                print('\n', 'Error al quitar la llave: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -151,7 +151,7 @@ class AccesoPG:
                 )
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al crear nuevo evento de limpieza: ', '\n\t', error)
+                print('\n', 'Error al crear nuevo evento de limpieza: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -176,7 +176,7 @@ class AccesoPG:
                 self.cur.execute('call set_limpieza_editar_hora(%s, %s)', (pid, phora))
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al editar la hora de un evento de limpieza: ', '\n\t', error)
+                print('\n', 'Error al editar la hora de un evento de limpieza: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -200,7 +200,7 @@ class AccesoPG:
                 self.cur.execute('call set_limpieza_completada(%s)', pid)
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al marcar como realizado un evento de limpieza: ', '\n\t', error)
+                print('\n', 'Error al marcar como realizado un evento de limpieza: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -212,7 +212,7 @@ class AccesoPG:
                 self.cur.execute('call set_equipo_limpieza_sumar(%s, %s)', (plimpieza_id, plegajo))
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al agregar un ordenanza a un evento de limpieza: ', '\n\t', error)
+                print('\n', 'Error al agregar un ordenanza a un evento de limpieza: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
@@ -224,7 +224,7 @@ class AccesoPG:
                 self.cur.execute('call set_equipo_limpieza_restar(%s, %s)', (plimpieza_id, plegajo))
                 return True
             except (Exception, psycopg2.Error) as error:
-                print('\n', 'Error al retirar un ordenanza de un evento de limpieza: ', '\n\t', error)
+                print('\n', 'Error al retirar un ordenanza de un evento de limpieza: ', '\n\n', error)
                 return False
         else:
             print('No conectado')
