@@ -163,7 +163,7 @@ class Interfaz:
 
             eventos_limpieza = self.pg.get_eventos_y_equipos_limpieza_futuros()
             print(tabulate(eventos_limpieza,
-                           headers=['Numero evento', 'Lugar', 'Ordenanza', 'Fecha', 'Hora', ]))
+                           headers=['Numero evento', 'Lugar', 'Ordenanza', 'Fecha', 'Hora']))
             print()
             pid = input('Seleccione el numero de evento de limpieza: ')
             print()
