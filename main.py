@@ -7,6 +7,7 @@
 # descripcion:  main se encarga del menu,
 #               interfaz de la presentacion de las tablas
 #               acceso_db de traer las tablas de intendencia db
+#               postgresql <-> acceso_db <-> interfaz -> main
 from consolemenu import *
 from consolemenu.items import *
 
@@ -58,5 +59,4 @@ def menu():
 
 if __name__ == "__main__":
     interfaz = Interfaz()
-
     menu()

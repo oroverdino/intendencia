@@ -146,9 +146,8 @@ class AccesoPG:
     def set_limpieza_nueva(self, plugar_id, pfecha, phora, plegajo):
         if self.conn is not None:
             try:
-                self.cur.execute(
-                    'call set_limpieza_nueva(%s,%s,%s,%s)', (plugar_id, pfecha, phora, plegajo)
-                )
+                self.cur.execute('call set_limpieza_nueva(%s, %s, %s, %s)',
+                                 (plugar_id, pfecha, phora, plegajo))
                 return True
             except (Exception, psycopg2.Error) as error:
                 print('\n', 'Error al crear nuevo evento de limpieza: ', '\n\n', error)
