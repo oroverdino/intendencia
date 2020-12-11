@@ -1,3 +1,4 @@
+import logging
 from tabulate import tabulate
 
 from acceso_db import AccesoPG
@@ -8,6 +9,14 @@ class Interfaz:
     def __init__(self):
         self.pg = AccesoPG()
 
+    def continuar(self):
+        input('\nPresione cualquier tecla para continuar...')
+
+    def no_conectado(self):
+        print('No estamos conectados a la DB.')
+        logging.warning('Sistema no conectado.')
+
+
     # AGENTES # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     def proyectar_agentes_activos(self):
@@ -16,8 +25,8 @@ class Interfaz:
             print(tabulate(agentes_activos,
                            headers=['Nombre', 'Apellido', 'Genero', 'eMail institucional', 'Cargo']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def proyectar_nombre_apellido(self):
         if self.pg.conn is not None:
@@ -25,8 +34,8 @@ class Interfaz:
             nombre_apellido = self.pg.search_agente_por_legajo(flegajo)
             print('\n', nombre_apellido)
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def proyectar_busqueda_por_apellido(self):
         if self.pg.conn is not None:
@@ -35,8 +44,8 @@ class Interfaz:
             print(tabulate(agentes,
                            headers=['Nombre', 'Apellido', 'Legajo', 'Cargo']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     # LUGARES # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -46,8 +55,8 @@ class Interfaz:
             print(tabulate(lugares,
                            headers=['Lugar', 'Tipo de lugar', 'Agente responsable']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def proyectar_puertas(self):
         if self.pg.conn is not None:
@@ -55,8 +64,8 @@ class Interfaz:
             print(tabulate(puertas,
                            headers=['Numero llave', 'Lugar', 'Agente con llave']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def asignar_llave(self):
         if self.pg.conn is not None:
@@ -78,8 +87,8 @@ class Interfaz:
             if self.pg.set_llave_asignar(llave, legajo):
                 print('\n', 'Llave asignada')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def quitar_llave(self):
         if self.pg.conn is not None:
@@ -101,8 +110,8 @@ class Interfaz:
             if self.pg.set_llave_quitar(llave, legajo):
                 print('\n', 'Llave quitada')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     # LIMPIEZA # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -113,7 +122,7 @@ class Interfaz:
                            headers=['Numero evento limpieza', 'Lugar', 'Fecha', 'Hora', 'Realizada']))
         else:
             print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+        self.continuar()
 
     def proyectar_equipos_limpieza(self):
         if self.pg.conn is not None:
@@ -121,8 +130,8 @@ class Interfaz:
             print(tabulate(equipo_limpieza,
                            headers=['Numero evento limpieza', 'Lugar', 'Ordenanza']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def proyectar_eventos_y_equipos_limpieza(self):
         if self.pg.conn is not None:
@@ -130,8 +139,8 @@ class Interfaz:
             print(tabulate(eventos_equipo_limpieza,
                            headers=['Numero evento', 'Lugar', 'Ordenanza', 'Fecha', 'Hora', 'Realizada']))
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def crear_evento_limpieza(self):
         if self.pg.conn is not None:
@@ -156,8 +165,8 @@ class Interfaz:
             if self.pg.set_limpieza_nueva(pid, pfecha, phora, plegajo):
                 print('\n', 'Creado nuevo evento de limpieza')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def editar_hora_evento_limpieza(self):
         if self.pg.conn is not None:
@@ -173,8 +182,8 @@ class Interfaz:
             if self.pg.set_limpieza_editar_hora(pid, phora):
                 print('\n', 'Modificada la fecha del evento de limpieza')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def set_evento_limpieza_completado(self):
         if self.pg.conn is not None:
@@ -188,8 +197,8 @@ class Interfaz:
             if self.pg.set_limpieza_completada(pid):
                 print('\n', 'Evento marcado como realizado')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def sumar_ordenanza_a_equipo_limpieza(self):
         if self.pg.conn is not None:
@@ -208,8 +217,8 @@ class Interfaz:
             if self.pg.set_equipo_limpieza_sumar(pid, plegajo):
                 print('\n', 'Ordenanza agregado a un evento de limpieza')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()
 
     def restar_ordenanza_a_equipo_limpieza(self):
         if self.pg.conn is not None:
@@ -228,5 +237,5 @@ class Interfaz:
             if self.pg.set_equipo_limpieza_restar(pid, plegajo):
                 print('\n', 'Ordenanza retirado de un evento de limpieza')
         else:
-            print('No conectado')
-        input('\nPresione cualquier tecla para continuar...')
+            self.no_conectado()
+        self.continuar()

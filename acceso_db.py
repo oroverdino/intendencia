@@ -4,19 +4,20 @@ from config import config
 
 
 class AccesoPG:
-
+    """Acceso a la db intendecia en PostgreSQL"""
     def __init__(self):
         """ Connect to the PostgreSQL database server """
         self.conn = None
         try:
             params = config(filename='database.ini', section='postgresql')
-            logging.info('Connecting to PostgreSQL database.')
             self.conn = psycopg2.connect(**params)
+        except (psycopg2.OperationalError, psycopg2.DatabaseError):
+            logging.error('Error en los parametros de psycopg2.', exc_info=True)
+        except Exception:
+            logging.error('Error al intentar la conexion.', exc_info=True)
+        else:
             self.conn.autocommit = True
             self.cur = self.conn.cursor()
-            logging.info('Conectado a intendencia database.')
-        except (Exception, psycopg2.DatabaseError):
-            logging.error('Mhhh', exc_info=True)
 
     def __del__(self):
         if self.conn is not None:

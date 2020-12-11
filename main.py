@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # curso: TUPED, Base de Datos
-# fecha: 24nov'20
+# fecha: 11dic'20
 # github: git@github.com:oroverdino/intendencia.git
 # Leandro Torres
 # descripcion:  main se encarga del menu,
@@ -14,6 +14,11 @@ from consolemenu.items import *
 
 from interfaz import Interfaz
 
+
+def start_log():
+    logging.basicConfig(filename='intendencia.log',
+                        level=logging.INFO,
+                        format="%(levelname)s %(asctime)s - %(message)s")
 
 def menu():
     # Agentes
@@ -60,12 +65,6 @@ def menu():
 
 
 if __name__ == "__main__":
-    try:
-        logging.basicConfig(filename='intendencia.log',
-                            level=logging.INFO,
-                            format="%(levelname)s %(asctime)s - %(message)s")
-        interfaz = Interfaz()
-    except Exception:
-        logging.exception('Algo sale mal', exc_info=True)
-    else:
-        menu()
+    start_log()
+    interfaz = Interfaz()
+    menu()
