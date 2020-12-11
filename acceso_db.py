@@ -1,3 +1,4 @@
+import logging
 import psycopg2
 from config import config
 
@@ -8,23 +9,21 @@ class AccesoPG:
         """ Connect to the PostgreSQL database server """
         self.conn = None
         try:
-            params = config()
-            print('Connecting to the PostgreSQL database...')
+            params = config(filename='database.ini', section='postgresql')
+            logging.info('Connecting to PostgreSQL database.')
             self.conn = psycopg2.connect(**params)
             self.conn.autocommit = True
             self.cur = self.conn.cursor()
-            print('Conectado a intendencia.')
-
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            logging.info('Conectado a intendencia database.')
+        except (Exception, psycopg2.DatabaseError):
+            logging.error('Mhhh', exc_info=True)
 
     def __del__(self):
         if self.conn is not None:
             self.cur.close()
             self.conn.close()
-            print('Database connection closed.')
 
-# AGENTES # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # AGENTES # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     def get_agentes_activos(self):
         if self.conn is not None:

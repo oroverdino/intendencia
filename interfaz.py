@@ -1,5 +1,6 @@
-from acceso_db import AccesoPG
 from tabulate import tabulate
+
+from acceso_db import AccesoPG
 
 
 class Interfaz:

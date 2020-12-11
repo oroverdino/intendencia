@@ -8,6 +8,7 @@
 #               interfaz de la presentacion de las tablas
 #               acceso_db de traer las tablas de intendencia db
 #               postgresql <-> acceso_db <-> interfaz -> main
+import logging
 from consolemenu import *
 from consolemenu.items import *
 
@@ -55,8 +56,16 @@ def menu():
 
     # Activa el menu
     menu_principal.show()
+    logging.debug('Show menu')
 
 
 if __name__ == "__main__":
-    interfaz = Interfaz()
-    menu()
+    try:
+        logging.basicConfig(filename='intendencia.log',
+                            level=logging.INFO,
+                            format="%(levelname)s %(asctime)s - %(message)s")
+        interfaz = Interfaz()
+    except Exception:
+        logging.exception('Algo sale mal', exc_info=True)
+    else:
+        menu()
